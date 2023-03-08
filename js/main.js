@@ -1,0 +1,1 @@
+const numberOfClients = 10;
