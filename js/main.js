@@ -94,4 +94,3 @@ function getOffer() {
         }
     }
 }
-console.log(offers);
