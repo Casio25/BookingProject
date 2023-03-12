@@ -1,5 +1,4 @@
-import * as variables from "./variables.js";
-import * as func from "./util.js" 
+import * as variables from "./variables.js"; 
 import { getOffer } from "./data.js";
 
 
