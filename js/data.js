@@ -12,7 +12,7 @@ export function getOffer() {
         },
         offer: {
             title: variables.titleArray[func.RandomNaturalNumber(0, variables.titleArray.length - 1)],
-            address: {
+            adress: {
                 locationX: getRandomX,
                 locationY: getRandomY
             },
@@ -24,7 +24,7 @@ export function getOffer() {
             checkout: variables.checkoutTimes[func.RandomNaturalNumber(0, variables.checkoutTimes.length - 1)],
             features: shuffledFeatures.slice(0, func.RandomNaturalNumber(1, variables.features.length - 1)),
             description: variables.roomDescriptions[func.RandomNaturalNumber(0, variables.roomDescriptions.length - 1)],
-            photos: variables.photosArray.slice(0, func.RandomNaturalNumber(1, variables.photosArray.length - 1)),
+            photos: variables.photosArray.slice(0, func.RandomNaturalNumber(1, variables.photosArray.length)),
             location: {
                 x: getRandomX,
                 y: getRandomY,

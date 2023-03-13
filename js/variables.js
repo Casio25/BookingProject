@@ -1,3 +1,6 @@
+import * as variables from "./variables.js";
+import { getOffer } from "./data.js";
+
 export const numberOfClients = 10;
 export const numberOfRooms = {
     MIN: 1,
@@ -34,26 +37,7 @@ export const titleArray = ["Book Now and Save: Exclusive Limited - Time Offer!",
     "Your Dream Vacation Awaits: Book Now and Enjoy Great Savings!", "Romantic Getaways: Book Now and Surprise Your Loved One!"];
 export const typeArray = ["palace", "flat", "house", "bungalow"];
 export const features = [
-    "Free Wi-Fi",
-    "Elevator",
-    "Air conditioning",
-    "Swimming pool",
-    "Gym",
-    "Parking",
-    "Restaurant",
-    "Room service",
-    "Business center",
-    "Pet-friendly accommodations",
-    "Accessible accommodations",
-    "Non-smoking rooms",
-    "Complimentary breakfast",
-    "24-hour front desk",
-    "Airport shuttle service",
-    "Laundry facilities",
-    "Spa services",
-    "Childcare services",
-    "Conference facilities",
-    "Beachfront location"
+    "wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"
 ];
 export const roomDescriptions = [
     "Cozy room with a comfortable queen-size bed and beautiful garden views.",
@@ -68,3 +52,8 @@ export const roomDescriptions = [
     "Family-friendly suite with bunk beds, a separate dining area, and easy access to nearby attractions."
 ];
 export const photosArray = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
+
+
+export const offers = new Array(variables.numberOfClients).fill(null).map(() => {
+    return getOffer();
+});
