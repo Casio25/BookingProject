@@ -32,7 +32,7 @@ function showPhotos(listOfPhotos){
     }
 }
     function checkForUndefined(object) {
-        for (var key in object) {
+        for (let key in object) {
             if (object[key] !== undefined)
                 getOfferData(object);
         }
