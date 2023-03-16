@@ -41,6 +41,25 @@ function getFeatures() {
     }
     
 }
+
+function chooseType(data){
+    switch(data){
+        case "flat":
+            data = "Квартира"
+            break;
+        case "bungalow":
+            data = "Бунгало"
+            break;
+        case "house":
+            data = "Юудинок"
+            break;
+        case "palace":
+            data = "Падац"
+            break;
+    }
+    return data;
+}
+
 function showPhotos(listOfPhotos){
     for(let i = 0; i < listOfPhotos.length; i++){
         const e = document.createElement("img");
@@ -65,7 +84,7 @@ function getOfferData(e) {
     popupAvatar.src = e.author.avatar;
     popupAdress.textContent = `${e.offer.adress.locationX} ${e.offer.adress.locationY}`;
     popupTitle.textContent = e.offer.title;
-    popupType.textContent = e.offer.type;
+    popupType.textContent = chooseType(e.offer.type);
     popupPrice.textContent = `${e.offer.price} грн/ніч`;
     popupCapacity.textContent = `${e.offer.rooms} кімнат для ${e.offer.guests} гостей`;
     popupTime.textContent = `Заїзд після ${e.offer.checkin} виїзд до ${e.offer.checkout}`;
