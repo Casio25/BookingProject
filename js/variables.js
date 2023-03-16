@@ -2,17 +2,14 @@ import * as variables from "./variables.js";
 import { getOffer } from "./data.js";
 
 export const numberOfClients = 10;
-export const numberOfRooms = {
-    MIN: 1,
-    MAX: 10
-}
+export const numberOfRooms = ["1 кімната", "2 кімнати", "3 кімнати", "100 кімнат"];
 export const numberOfGuests = {
-    MIN: 1,
-    MAX: 50
+    MIN: 0,
+    MAX: 3
 }
 export const priceList = {
-    MIN: 300,
-    MAX: 1200
+    MIN: 1000,
+    MAX: 30000
 }
 export const numberOfAvatars = {
     MIN: 1,
