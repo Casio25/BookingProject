@@ -1,6 +1,5 @@
 import * as variables from "./variables.js";
 
-
 const formElemType = document.querySelector("#type");
 const formElemPrice = document.querySelector("#price");
 const formElemRooms = document.querySelector("#room_number");
@@ -111,4 +110,19 @@ export function validationForm() {
                 break;
         }
     })
+    let form = document.querySelector(".ad-form");
+    let allElements = form.elements;
+    for (let i = 0, l = allElements.length; i < l; ++i) {
+        // allElements[i].readOnly = true;
+        allElements[i].disabled = true;
+    }
+    function pageIsLoaded(){
+        for (let i = 0, l = allElements.length; i < l; ++i) {
+            // allElements[i].readOnly = true;
+            allElements[i].disabled = false;
+        }
+    }
+    window.addEventListener('load', pageIsLoaded)
+
+
 }
