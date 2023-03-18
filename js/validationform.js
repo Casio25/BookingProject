@@ -58,19 +58,19 @@ export function validationForm() {
     formElemCapacity.addEventListener('change', (e) => {
         switch(e.target.value){
             case "1":
-                document.querySelector('select[name="rooms"] option[value="100"]').disabled = true;
+                document.querySelector('select[name="rooms"] option[value="100"]').disabled = false;
                 document.querySelector('select[name="rooms"] option[value="2"]').disabled = false;
                 document.querySelector('select[name="rooms"] option[value="3"]').disabled = false;
                 document.querySelector('select[name="rooms"] option[value="1"]').disabled = false;
                 break;
             case "2":
-                document.querySelector('select[name="rooms"] option[value="100"]').disabled = true;
+                document.querySelector('select[name="rooms"] option[value="100"]').disabled = false;
                 document.querySelector('select[name="rooms"] option[value="2"]').disabled = false;
                 document.querySelector('select[name="rooms"] option[value="3"]').disabled = false;
                 document.querySelector('select[name="rooms"] option[value="1"]').disabled = true;
                 break;
             case "3":
-                document.querySelector('select[name="rooms"] option[value="100"]').disabled = true;
+                document.querySelector('select[name="rooms"] option[value="100"]').disabled = false;
                 document.querySelector('select[name="rooms"] option[value="2"]').disabled = true;
                 document.querySelector('select[name="rooms"] option[value="3"]').disabled = false;
                 document.querySelector('select[name="rooms"] option[value="1"]').disabled = true;
