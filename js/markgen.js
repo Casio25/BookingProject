@@ -1,4 +1,5 @@
 import { offers } from "./variables.js";
+import { exampleOffer } from "./variables.js";
 
 const pops = document.querySelector("#map-canvas");
 
@@ -18,10 +19,11 @@ const popupElevator = cardTemplate.content.querySelector(".popup__feature--eleva
 const popupConditioner = cardTemplate.content.querySelector(".popup__feature--conditioner");
 const popupDescription = cardTemplate.content.querySelector(".popup__description");
 const popupPhotos = cardTemplate.content.querySelector(".popup__photos");
-export function showPopup(){
+const fragment = new DocumentFragment();
 
 
-offers.map((e) => checkForUndefined(e));
+
+export const cloneOffer = offers.map((e) => getOfferData(e));
 
 function getFeatures() {
     for(let i = 0; i < offers.length; i++){
@@ -61,6 +63,7 @@ function chooseType(data){
 }
 
 function showPhotos(listOfPhotos){
+    popupPhotos.innerHTML = "";
     for(let i = 0; i < listOfPhotos.length; i++){
         const e = document.createElement("img");
         e.setAttribute("width", "45");
@@ -71,6 +74,7 @@ function showPhotos(listOfPhotos){
         popupPhotos.appendChild(e);
 
     }
+    
 }
     function checkForUndefined(object) {
         for (let key in object) {
@@ -79,8 +83,8 @@ function showPhotos(listOfPhotos){
         }
         return false;
     }
-
 function getOfferData(e) {
+    const cloneTemplate = cardTemplate.content.cloneNode(true).firstElementChild;
     popupAvatar.src = e.author.avatar;
     popupAdress.textContent = `${e.offer.adress.locationX} ${e.offer.adress.locationY}`;
     popupTitle.textContent = e.offer.title;
@@ -91,15 +95,20 @@ function getOfferData(e) {
     getFeatures();
     popupDescription.textContent = e.offer.description;
     showPhotos(e.offer.photos);
+    fragment.appendChild(cloneTemplate);
+    return cloneTemplate;
 
 
     
 
-    const cloneTemplate = cardTemplate.content.cloneNode(true);
+    
 
     
-    pops.appendChild(cloneTemplate);
+    
     
 }
-console.log("test")
-}
+console.log("test");
+
+
+
+

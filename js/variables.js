@@ -2,6 +2,7 @@ import * as variables from "./variables.js";
 import { getOffer } from "./data.js";
 
 export const numberOfClients = 10;
+const exampleNumber = 1;
 export const numberOfRooms = ["1 кімната", "2 кімнати", "3 кімнати", "100 кімнат"];
 export const numberOfGuests = {
     MIN: 0,
@@ -52,5 +53,8 @@ export const photosArray = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`
 
 
 export const offers = new Array(variables.numberOfClients).fill(null).map(() => {
+    return getOffer();
+});
+export const exampleOffer = new Array(exampleNumber).fill(null).map(() => {
     return getOffer();
 });
