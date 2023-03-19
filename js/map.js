@@ -28,7 +28,7 @@ export function mapPopup(){
     }
     myMarker = new L.marker(L.latLng(35.66267785620779, 139.75866624868985), { draggable: true, icon: redIcon })
         .addTo(map)
-        .on('dragend', function () {
+        .on('drag', function () {
         const coord = String(myMarker.getLatLng()).split(", ");
         console.log(coord);
         const lat = coord[0].split('(');
