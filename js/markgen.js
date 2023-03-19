@@ -1,5 +1,5 @@
 import { offers } from "./variables.js";
-import { exampleOffer } from "./variables.js";
+
 
 const pops = document.querySelector("#map-canvas");
 

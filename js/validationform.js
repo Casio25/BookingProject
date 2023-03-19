@@ -6,23 +6,30 @@ const formElemRooms = document.querySelector("#room_number");
 const formElemCapacity = document.querySelector("#capacity");
 const formElemCheckin = document.querySelector("#timein");
 const formElemCheckout = document.querySelector("#timeout");
+const bungalowMin = 0;
+const flatMin = 1000;
+const houseMin = 5000;
+const palaceMin = 10000;
 formElemCapacity.value = "1"
 export function validationForm() {
     formElemType.addEventListener('change', (e) => {
         switch (e.target.value) {
             
             case "bungalow":
-                formElemPrice.min = 0;
+                formElemPrice.min = bungalowMin;
+                formElemPrice.placeholder = bungalowMin;
                 break;
             case "flat":
-                
-                formElemPrice.min = 1000;
+                formElemPrice.min = flatMin;
+                formElemPrice.placeholder = flatMin;
                 break;
             case "house":
-                formElemPrice.min = 5000;
+                formElemPrice.min = houseMin;
+                formElemPrice.placeholder = houseMin;
                 break;
             case "palace":
-                formElemPrice.min = 10000;
+                formElemPrice.min = palaceMin;
+                formElemPrice.placeholder = palaceMin;
                 break;
         }
     })
