@@ -5,6 +5,9 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="leaflet/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+  <script src="/leaflet/leaflet.js"></script>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <title>Кексобукинг</title>
 </head>
@@ -19,7 +22,9 @@
     <section class="map">
 
       <!-- Блок для вставки карты -->
-      <div class="map__canvas" id="map-canvas"></div>
+      <div class="map__canvas" id="map-canvas">
+      
+      </div>
 
       <!-- Фильтрация объявлений -->
       <div class="map__filters-container">
@@ -115,7 +120,7 @@
           <select id="timeout" name="timeout" title="Time to go out">
             <option value="12:00" selected>Виїзд до 12</option>
             <option value="13:00">Виїзд до 13</option>
-            <option value="14:00">ВыВиїздезд до 14</option>
+            <option value="14:00">Виїзд до 14</option>
           </select>
         </fieldset>
         <fieldset class="ad-form__element">
@@ -214,8 +219,8 @@
       <button type="button" class="error__button">Спробувати знову</button>
     </div>
   </template>
-
   <script type="module" src="/js/main.js"></script>
+  
 
 </body>
 </html>
