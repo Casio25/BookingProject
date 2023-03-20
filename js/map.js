@@ -20,7 +20,7 @@ export function mapPopup(){
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
-    for (let i = 0; i < offers.length; i++) {
+    for (let i = 1; i < offers.length; i++) {
         marker = new L.marker([offers[i].offer.location.x, offers[i].offer.location.y],)
             .bindPopup(cloneOffer[i])
             .addTo(map);

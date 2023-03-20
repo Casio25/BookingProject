@@ -6,12 +6,48 @@ const formElemRooms = document.querySelector("#room_number");
 const formElemCapacity = document.querySelector("#capacity");
 const formElemCheckin = document.querySelector("#timein");
 const formElemCheckout = document.querySelector("#timeout");
+/*Submit button  */
+const submitButton = document.querySelector(".ad-form__submit")
+
+
 const bungalowMin = 0;
 const flatMin = 1000;
 const houseMin = 5000;
 const palaceMin = 10000;
 formElemCapacity.value = "1"
 export function validationForm() {
+    /*functions for chechin and checkout*/
+    function checkOutChange(e){
+        formElemCheckout.value = e.target.value;
+    }
+    function checkInChange(e){
+        formElemCheckin.value = e.target.value;
+    }
+    function defaultCapacityChange(){
+        document.querySelector('select[name="capacity"] option[value="0"]').disabled = false;
+        document.querySelector('select[name="capacity"] option[value="2"]').disabled = true;
+        document.querySelector('select[name="capacity"] option[value="3"]').disabled = true;
+        document.querySelector('select[name="capacity"] option[value="1"]').disabled = true;
+        console.log('defaultcap')
+    }
+    function roomChange(e){
+        if (e.target.value == 100){
+            defaultCapacityChange();
+            formElemCapacity.value = "0"
+        }else {
+            defaultCapacityChange();
+            for(let i = e.target.value; i >= 1; i--){
+                document.querySelector(`select[name="capacity"] option[value="${i}"]`).disabled = false;
+                console.log(i);
+            }
+        }
+    }
+    function capacityChange(e) {
+        if (e.target.value == 0){
+            formElemRooms.value = "100";
+        }
+    }
+
     formElemType.addEventListener('change', (e) => {
         switch (e.target.value) {
             
@@ -34,90 +70,32 @@ export function validationForm() {
         }
     })
     formElemRooms.addEventListener('change', (e) =>{
-        switch (e.target.value) {
-            case "1":
-                document.querySelector('select[name="capacity"] option[value="1"]').disabled = false;
-                document.querySelector('select[name="capacity"] option[value="2"]').disabled = true;
-                document.querySelector('select[name="capacity"] option[value="3"]').disabled = true;
-                document.querySelector('select[name="capacity"] option[value="0"]').disabled = true;
-                break;
-            case "2":
-                document.querySelector('select[name="capacity"] option[value="1"]').disabled = false;
-                document.querySelector('select[name="capacity"] option[value="2"]').disabled = false;
-                document.querySelector('select[name="capacity"] option[value="3"]').disabled = true;
-                document.querySelector('select[name="capacity"] option[value="0"]').disabled = true;
-                break;
-            case "3":
-                document.querySelector('select[name="capacity"] option[value="1"]').disabled = false;
-                document.querySelector('select[name="capacity"] option[value="2"]').disabled = false;
-                document.querySelector('select[name="capacity"] option[value="3"]').disabled = false;
-                document.querySelector('select[name="capacity"] option[value="0"]').disabled = true;
-                break;
-            case "100":
-                document.querySelector('select[name="capacity"] option[value="0"]').disabled = false;
-                document.querySelector('select[name="capacity"] option[value="2"]').disabled = true;
-                document.querySelector('select[name="capacity"] option[value="3"]').disabled = true;
-                document.querySelector('select[name="capacity"] option[value="1"]').disabled = true;
-                formElemCapacity.value = "0"
-                break;
-        }
+        roomChange(e);
     })
     formElemCapacity.addEventListener('change', (e) => {
-        switch(e.target.value){
-            case "1":
-                document.querySelector('select[name="rooms"] option[value="100"]').disabled = false;
-                document.querySelector('select[name="rooms"] option[value="2"]').disabled = false;
-                document.querySelector('select[name="rooms"] option[value="3"]').disabled = false;
-                document.querySelector('select[name="rooms"] option[value="1"]').disabled = false;
-                break;
-            case "2":
-                document.querySelector('select[name="rooms"] option[value="100"]').disabled = false;
-                document.querySelector('select[name="rooms"] option[value="2"]').disabled = false;
-                document.querySelector('select[name="rooms"] option[value="3"]').disabled = false;
-                document.querySelector('select[name="rooms"] option[value="1"]').disabled = true;
-                break;
-            case "3":
-                document.querySelector('select[name="rooms"] option[value="100"]').disabled = false;
-                document.querySelector('select[name="rooms"] option[value="2"]').disabled = true;
-                document.querySelector('select[name="rooms"] option[value="3"]').disabled = false;
-                document.querySelector('select[name="rooms"] option[value="1"]').disabled = true;
-                break;
-            case "0":
-                document.querySelector('select[name="rooms"] option[value="100"]').disabled = false;
-                document.querySelector('select[name="rooms"] option[value="2"]').disabled = true;
-                document.querySelector('select[name="rooms"] option[value="3"]').disabled = true;
-                document.querySelector('select[name="rooms"] option[value="1"]').disabled = true;
-                formElemRooms.value = "0"
-                break;
-        }
+        capacityChange(e);
     })
     formElemCheckin.addEventListener('change', (e) =>{
-        switch(e.target.value){
-            case "12:00":
-                formElemCheckout.value = "12:00"
-                break;
-            case "13:00":
-                formElemCheckout.value = "13:00"
-                break;
-            case "14:00":
-                formElemCheckout.value = "14:00"
-                break;
-        }
+        checkOutChange(e)
     })
     formElemCheckout.addEventListener('change', (e) => {
-        switch (e.target.value) {
-            case "12:00":
-                formElemCheckin.value = "12:00"
-                break;
-            case "13:00":
-                formElemCheckin.value = "13:00"
-                break;
-            case "14:00":
-                formElemCheckin.value = "14:00"
-                break;
-        }
+        checkInChange(e)
     })
-    
+
+    function validationCheck(){
+        if (formElemPrice.value === "") {
+            console.log("not enought data");
+        } else {
+            console.log("everything is fine");
+        }
+        console.log(String(formElemPrice.value))
+    }
+
+
+    submitButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        validationCheck();
+    });
 
 
 }
