@@ -1,4 +1,4 @@
-import * as variables from "./variables.js";
+
 
 const formElemTitle = document.querySelector("#title");
 const formElemType = document.querySelector("#type");
@@ -88,8 +88,10 @@ export function validationForm() {
             console.log("not enought data");
         } else if (formElemCapacity.value == "0" && formElemRooms.value !== "100") {
             console.log("wrong type of flat for that ammout of people");
-        }else{
-            console.log("ok");
+        }else if (formElemCapacity.value > formElemRooms.value){
+            console.log("Wrong type of people for that type of flat");
+        }else {
+            console.log("ok")
         }
     }
 
@@ -98,6 +100,5 @@ export function validationForm() {
         e.preventDefault();
         validationCheck();
     });
-
 
 }
