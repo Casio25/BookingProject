@@ -9,7 +9,7 @@ const formElemCheckin = document.querySelector("#timein");
 const formElemCheckout = document.querySelector("#timeout");
 /*Submit button  */
 const submitButton = document.querySelector(".ad-form__submit")
-
+const notForPeople = 100;
 
 const bungalowMin = 0;
 const flatMin = 1000;
@@ -32,7 +32,7 @@ export function validationForm() {
         console.log('defaultcap')
     }
     function roomChange(e){
-        if (e.target.value == 100){
+        if (e.target.value == notForPeople){
             defaultCapacityChange();
             formElemCapacity.value = "0"
         }else {
