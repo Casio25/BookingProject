@@ -1,5 +1,6 @@
-import * as variables from "./variables.js";
 
+
+const formElemTitle = document.querySelector("#title");
 const formElemType = document.querySelector("#type");
 const formElemPrice = document.querySelector("#price");
 const formElemRooms = document.querySelector("#room_number");
@@ -8,7 +9,7 @@ const formElemCheckin = document.querySelector("#timein");
 const formElemCheckout = document.querySelector("#timeout");
 /*Submit button  */
 const submitButton = document.querySelector(".ad-form__submit")
-
+const notForPeople = 100;
 
 const bungalowMin = 0;
 const flatMin = 1000;
@@ -31,7 +32,7 @@ export function validationForm() {
         console.log('defaultcap')
     }
     function roomChange(e){
-        if (e.target.value == 100){
+        if (e.target.value == notForPeople){
             defaultCapacityChange();
             formElemCapacity.value = "0"
         }else {
@@ -83,12 +84,15 @@ export function validationForm() {
     })
 
     function validationCheck(){
-        if (formElemPrice.value === "") {
+        if (formElemPrice.value === "" || formElemTitle === "") {
             console.log("not enought data");
-        } else {
-            console.log("everything is fine");
+        } else if (formElemCapacity.value == "0" && formElemRooms.value !== "100") {
+            console.log("wrong type of flat for that ammout of people");
+        }else if (formElemCapacity.value > formElemRooms.value){
+            console.log("Wrong type of people for that type of flat");
+        }else {
+            console.log("ok")
         }
-        console.log(String(formElemPrice.value))
     }
 
 
@@ -96,6 +100,5 @@ export function validationForm() {
         e.preventDefault();
         validationCheck();
     });
-
 
 }
