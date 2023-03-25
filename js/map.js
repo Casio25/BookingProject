@@ -5,7 +5,6 @@ import {cloneOffer} from "./markgen.js"
 
 const map = L.map('map-canvas').setView([35.68160140616105, 139.7518429874794,], 13);
 let marker = undefined;
-let myMarker =undefined;
 let redIcon = L.icon({
     iconUrl: './img/main-pin.svg',
 
@@ -15,6 +14,14 @@ let redIcon = L.icon({
     shadowAnchor: [4, 62],  // the same for the shadow
     popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
+export const myMarker = new L.marker(L.latLng(35.66267785620779, 139.75866624868985), { draggable: true, icon: redIcon })
+    .addTo(map)
+myMarker.addEventListener('drag', () => {
+    const latlng = myMarker.getLatLng();
+    myMarker.setLatLng(latlng);
+    document.getElementById("address").value = `${latlng.lat}, ${latlng.lng}`;
+});
+
 export function mapPopup(){
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -26,16 +33,5 @@ export function mapPopup(){
             .addTo(map);
         
     }
-    myMarker = new L.marker(L.latLng(35.66267785620779, 139.75866624868985), { draggable: true, icon: redIcon })
-        .addTo(map)
-        .on('drag', function () {
-        const coord = String(myMarker.getLatLng()).split(", ");
-        console.log(coord);
-        const lat = coord[0].split('(');
-        console.log(lat);
-        const lng = coord[1].split(')');
-        console.log(lng);
-        myMarker.bindPopup("Moved to: " + lat[1] + ", " + lng[0] + ".");
-        document.getElementById("address").value = lat[1] + ", " + lng[0];
-    })
+
 }

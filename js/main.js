@@ -1,4 +1,5 @@
 import { offers } from "./variables.js";
+import { Arrays } from "./sortedArrays.js";
 
 
 import { validationForm } from "./validationform.js";
@@ -15,11 +16,20 @@ function pageIsLoaded() {
         allElements[i].disabled = false;
     }
 }
+
+
+export const backendData = await fetch('http://localhost:3000/data')
+    .then(function (resp) {
+        return resp.json()
+    })
+    .catch((error) => {
+        return `${error}`;
+    });
+
+Arrays();
+
 window.addEventListener('load', pageIsLoaded);
+
 
 validationForm();
 mapPopup();
-
-
-
-
