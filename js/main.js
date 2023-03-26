@@ -18,13 +18,21 @@ function pageIsLoaded() {
 }
 
 
-export const backendData = await fetch('http://localhost:3000/data')
-    .then(function (resp) {
-        return resp.json()
-    })
-    .catch((error) => {
-        return `${error}`;
-    });
+const fetchData = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/data')
+        if (!response.ok) {
+            throw new Error('Network response was not ok')
+        }
+        return await response.json()
+    } catch (error) {
+        console.log('Fetch error:', error)
+        return error
+    }
+}
+
+const backendData = await fetchData()
+
 
 Arrays();
 

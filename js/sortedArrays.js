@@ -1,6 +1,22 @@
-import { backendData } from "./main.js";
+
 import * as func from "./util.js"
 const numberOfShownOffers = 10;
+
+const fetchData = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/data')
+        if (!response.ok) {
+            throw new Error('Network response was not ok')
+        }
+        return await response.json()
+    } catch (error) {
+        console.log('Fetch error:', error)
+        return error
+    }
+}
+/**test function */
+
+
 const fakeData = [
     {
         "author": {
@@ -76,18 +92,22 @@ let filterArray = {
     offer:{
     }
 }
+let filteredData = {};
 const typeSelector = document.querySelector("#housing-type");
 const priceSelector = document.querySelector("#housing-price");
 const roomSelector = document.querySelector("#housing-rooms");
 const capacitySelector = document.querySelector("#housing-guests");
 let slicedDefault
 console.log(`sliced`, slicedDefault)
-export function Arrays() {
+export async function Arrays() {
+    const backendData = await fetchData()
     const backendArray = JSON.stringify(backendData);
-    const shuffledBackendData = func.shuffle(JSON.parse(backendArray));
+    const shuffledBackendData = JSON.parse(backendArray);
     console.log(shuffledBackendData)
     slicedDefault = shuffledBackendData.slice(0, numberOfShownOffers);
+    
     /*test part */
+
     /*functions for filters */
     function typeFilter(e) {
         if (e === "any") {
@@ -107,7 +127,7 @@ export function Arrays() {
         if (e === "any") {
             delete filterArray.offer.guests;
         } else {
-            filterArray.offer.guests = e;
+            filterArray.offer.guests = Number(e);
         }
     }
 
@@ -135,22 +155,22 @@ export function Arrays() {
     /*eventListeners */
     typeSelector.addEventListener('change', (e) => {
         typeFilter(e.target.value);
-        console.log(filterArray);
-        console.log(applyFilter(fakeData))
+        filteredData = applyFilter(backendData);
+        console.log(filteredData)
 
 
     })
     roomSelector.addEventListener('change', (e) => {
         roomFilter(e.target.value);
         console.log(filterArray);
-        console.log(applyFilter(backendData)) // log filtered each time roomSelector is changed
+        filteredData = applyFilter(backendData) // log filtered each time roomSelector is changed
+        console.log(filteredData)
     })
     capacitySelector.addEventListener('change', (e) => {
         capacityFilter(e.target.value);
         console.log(filterArray);
-        console.log(applyFilter(backendData)) // log filtered each time capacitySelector is changed
-        console.log(backendData[0]);
-        console.log(fakeData[0]);
+        filteredData =  applyFilter(backendData) // log filtered each time capacitySelector is changed
+        console.log(filteredData)
     })
 }
 
