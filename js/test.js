@@ -1,18 +1,39 @@
-function filterByType(value) {
-    if (value === "any") {
-        console.log("no sorting by type");
-    } else if (filteredArray.length == 0) {
-        for (let i = 0; i < shuffledBackendData.length; i++) {
-            if (shuffledBackendData[i].offer.type === `${value}`) {
-                filteredArray.push(shuffledBackendData[i]);
-                multiblefilteredArray.push(shuffledBackendData[i])
-            }
-        }
-    } else if (filteredArray.length !== 0 && multiblefilteredArray) {
-        filteredArray = [];
+const filterTypeValue = document.querySelector(".housing-type").value;
+let typeValueDefault = "any"
 
+filterTypeValue.addEventListener('change', (e) => {
+    typeValueDefault = e.target.value;
+})
+
+function filterByType(offer) {
+    if (typeValueDefault === "any") {
+        return true;
+    }else{
+        return offer.type === typeValueDefault;
     }
 }
+
+function filterByRoom(offer) {
+    if (typeValueDefault === "any") {
+        return true;
+    } else {
+        return offer.room === typeValueDefault;
+    }
+}
+
+let result = shuffledBackendData.filter(filterByType(offer)&&filterByRoom(offer))
+        
+    // } else if (filteredArray.length == 0) {
+    //     for (let i = 0; i < shuffledBackendData.length; i++) {
+    //         if (shuffledBackendData[i].offer.type === `${value}`) {
+    //             filteredArray.push(shuffledBackendData[i]);
+    //             multiblefilteredArray.push(shuffledBackendData[i])
+    //         }
+    //     }
+    // } else if (filteredArray.length !== 0 && multiblefilteredArray) {
+    //     filteredArray = [];
+
+    // }
 
 /*another test */
 function typeFilter(value) {
