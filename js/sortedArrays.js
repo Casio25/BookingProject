@@ -16,80 +16,11 @@ const fetchData = async () => {
 }
 /**test function */
 
-
-const fakeData = [
-    {
-        "author": {
-            "name": "John Smith",
-            "avatar": "img/avatars/user01.png"
-        },
-        "offer": {
-            "title": "Luxury Apartment in the Heart of the City",
-            "address": {
-                "locationX": 37.7749,
-                "locationY": -122.4194
-            },
-            "price": 300,
-            "priceRange": "high",
-            "type": "flat",
-            "rooms": "2 room",
-            "guests": 4,
-            "checkin": "3:00 PM",
-            "checkout": "11:00 AM",
-            "features": [
-                "wifi",
-                "kitchen",
-                "washer"
-            ],
-            "description": "This beautiful apartment is located in the heart of the city and is perfect for a luxurious stay. It features 2 bedrooms, a fully equipped kitchen, and all the amenities you need to make your stay comfortable and enjoyable.",
-            "photos": [
-                "https://picsum.photos/id/1015/600/400",
-                "https://picsum.photos/id/1016/600/400",
-                "https://picsum.photos/id/1018/600/400"
-            ],
-            "location": {
-                "x": 37.7749,
-                "y": -122.4194
-            }
-        }
-    },
-    {
-        "author": {
-            "name": "Jane Doe",
-            "avatar": "img/avatars/user02.png"
-        },
-        "offer": {
-            "title": "Cozy Cottage in the Woods",
-            "address": {
-                "locationX": 45.5231,
-                "locationY": -122.6765
-            },
-            "price": 150,
-            "priceRange": "low",
-            "type": "palace",
-            "rooms": "1 room",
-            "guests": 2,
-            "checkin": "4:00 PM",
-            "checkout": "12:00 PM",
-            "features": [
-                "fireplace",
-                "patio"
-            ],
-            "description": "Escape to this cozy cottage in the woods for a relaxing getaway. This beautiful cottage features a fireplace, a patio with stunning views, and all the amenities you need to make your stay comfortable and enjoyable.",
-            "photos": [
-                "https://picsum.photos/id/1021/600/400",
-                "https://picsum.photos/id/1022/600/400",
-                "https://picsum.photos/id/1023/600/400"
-            ],
-            "location": {
-                "x": 45.5231,
-                "y": -122.6765
-            }
-        }
-    },
-]
 let filterArray = {
     offer:{
+        features:[],
+        
+
     }
 }
 let filteredData = {};
@@ -97,14 +28,16 @@ const typeSelector = document.querySelector("#housing-type");
 const priceSelector = document.querySelector("#housing-price");
 const roomSelector = document.querySelector("#housing-rooms");
 const capacitySelector = document.querySelector("#housing-guests");
-let slicedDefault
-console.log(`sliced`, slicedDefault)
+const featureCheckbox = document.querySelectorAll('#housing-features input[type="checkbox"]');
+const featureSelector = document.querySelector('#housing-features');
+const backendData = await fetchData()
+const backendArray = JSON.stringify(backendData);
+const shuffledBackendData = JSON.parse(backendArray);
+
+const slicedDefault = shuffledBackendData.slice(0, numberOfShownOffers);
+
 export async function Arrays() {
-    const backendData = await fetchData()
-    const backendArray = JSON.stringify(backendData);
-    const shuffledBackendData = JSON.parse(backendArray);
-    console.log(shuffledBackendData)
-    slicedDefault = shuffledBackendData.slice(0, numberOfShownOffers);
+
     
     /*test part */
 
@@ -120,7 +53,7 @@ export async function Arrays() {
         if (e === "any") {
             delete filterArray.offer.rooms;
         } else {
-            filterArray.offer.rooms = e;
+            filterArray.offer.rooms = Number(e);
         }
     }
     function capacityFilter(e) {
@@ -130,11 +63,50 @@ export async function Arrays() {
             filterArray.offer.guests = Number(e);
         }
     }
+    function featureFilter(e){
+        if (e.checked) {
+            
+            filterArray.offer.features.push(e.value);
+        } else {
+            // remove the feature from the features array
+            const index = filterArray.offer.features.indexOf(e.value);
+            if (index > -1) {
+                filterArray.offer.features.splice(index, 1);
+            }
+        }
+    }
+    function priceFilter(e) {
+        switch (e) {
+            case 'low':
+                filterArray.offer.price = {
+                    min: 0,
+                    max: 10000
+                };
+                break;
+            case 'middle':
+                filterArray.offer.price = {
+                    min: 10000,
+                    max: 50000
+                };
+                break;
+            case 'high':
+                filterArray.offer.price = {
+                    min: 50000,
+                    max: Number.MAX_SAFE_INTEGER
+                };
+                break;
+            case "any":
+                filterArray.offer.price = {
+                    min: 0,
+                    max: Number.MAX_SAFE_INTEGER
+                };
+        }
+    }
+
 
     let filtered = [];
 
     function applyFilter(data) {
-        filtered = []; // empty filtered at the beginning of each call
         filtered = data.filter(item => {
             // check if item matches the filter criteria
             if (filterArray.offer.type && item.offer.type !== filterArray.offer.type) {
@@ -146,16 +118,41 @@ export async function Arrays() {
             if (filterArray.offer.guests && item.offer.guests !== filterArray.offer.guests) {
                 return false;
             }
+            if (filterArray.offer.price) {
+                let itemPrice = item.offer.price;
+                let filterPrice = filterArray.offer.price;
+                if (typeof filterPrice === 'number') {
+                    if (itemPrice > filterPrice) {
+                        return false;
+                    }
+                } else if (itemPrice < filterPrice.min || itemPrice > filterPrice.max) {
+                        return false;
+                    }
+                
+            }
+            if (filterArray.offer.features.length > 0) {
+                let itemFeatures = item.offer.features;
+                let filterFeatures = filterArray.offer.features;
+                let matchesFilter = filterFeatures.every(filterFeature => itemFeatures.includes(filterFeature));
+                if (!matchesFilter) {
+                    return false;
+                }
+            }
             return true;
         });
-        console.log(filtered); // log filtered each time applyFilter is called
         return filtered;
     }
+
+
+
+
+
+
 
     /*eventListeners */
     typeSelector.addEventListener('change', (e) => {
         typeFilter(e.target.value);
-        filteredData = applyFilter(backendData);
+        filteredData = applyFilter(shuffledBackendData);
         console.log(filteredData)
 
 
@@ -163,14 +160,28 @@ export async function Arrays() {
     roomSelector.addEventListener('change', (e) => {
         roomFilter(e.target.value);
         console.log(filterArray);
-        filteredData = applyFilter(backendData) // log filtered each time roomSelector is changed
+        filteredData = applyFilter(shuffledBackendData) // log filtered each time roomSelector is changed
         console.log(filteredData)
     })
     capacitySelector.addEventListener('change', (e) => {
         capacityFilter(e.target.value);
         console.log(filterArray);
-        filteredData =  applyFilter(backendData) // log filtered each time capacitySelector is changed
+        filteredData = applyFilter(shuffledBackendData) // log filtered each time capacitySelector is changed
         console.log(filteredData)
+    })
+    featureSelector.addEventListener('change', (e)=>{
+        featureFilter(e.target);
+        console.log(filterArray);
+        console.log(e.target.value)
+        filteredData = applyFilter(shuffledBackendData);
+        console.log(filteredData)
+    });
+    priceSelector.addEventListener('change', (e) =>{
+        priceFilter(e.target.value);
+        console.log(e.target.value)
+        console.log(filterArray);
+        filteredData = applyFilter(shuffledBackendData);
+        console.log(filteredData);
     })
 }
 
