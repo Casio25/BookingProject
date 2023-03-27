@@ -1,3 +1,4 @@
+import { sendOffer } from "./fetch.js";
 
 
 const formElemTitle = document.querySelector("#title");
@@ -91,7 +92,9 @@ export function validationForm() {
         }else if (formElemCapacity.value > formElemRooms.value){
             console.log("Wrong type of people for that type of flat");
         }else {
-            console.log("ok")
+            console.log("ok");
+            sendOffer();
+
         }
     }
 

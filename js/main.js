@@ -1,4 +1,5 @@
 import { offers } from "./variables.js";
+import { Arrays } from "./sortedArrays.js";
 
 
 import { validationForm } from "./validationform.js";
@@ -15,11 +16,28 @@ function pageIsLoaded() {
         allElements[i].disabled = false;
     }
 }
+
+
+const fetchData = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/data')
+        if (!response.ok) {
+            throw new Error('Network response was not ok')
+        }
+        return await response.json()
+    } catch (error) {
+        console.log('Fetch error:', error)
+        return error
+    }
+}
+
+const backendData = await fetchData()
+
+
+Arrays();
+
 window.addEventListener('load', pageIsLoaded);
+
 
 validationForm();
 mapPopup();
-
-
-
-
