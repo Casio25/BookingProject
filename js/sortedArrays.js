@@ -1,5 +1,5 @@
 
-import * as func from "./util.js"
+import * as variables from "./variables.js"
 const numberOfShownOffers = 10;
 
 const fetchData = async () => {
@@ -79,20 +79,20 @@ export async function Arrays() {
         switch (e) {
             case 'low':
                 filterArray.offer.price = {
-                    min: 0,
-                    max: 10000
+                    min: variables.priceLow.MIN,
+                    max: variables.priceLow.MAX
                 };
                 break;
             case 'middle':
                 filterArray.offer.price = {
-                    min: 10000,
-                    max: 50000
+                    min: variables.priceMiddle.MIN,
+                    max: variables.priceMiddle.MAX
                 };
                 break;
             case 'high':
                 filterArray.offer.price = {
-                    min: 50000,
-                    max: 70000
+                    min: variables.priceHigh.MIN,
+                    max: variables.priceHigh.MAX
                 };
                 break;
             case "any":

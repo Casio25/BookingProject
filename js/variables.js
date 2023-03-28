@@ -8,6 +8,19 @@ export const numberOfGuests = {
     MIN: 0,
     MAX: 3
 }
+export const priceLow = {
+    MIN: 0,
+    MAX: 10000
+}
+export const priceMiddle = {
+    MIN: 10000,
+    MAX: 50000,
+
+}
+export const priceHigh = {
+    MIN: 50000,
+    MAX: 99999,
+}
 export const priceList = {
     MIN: 1000,
     MAX: 30000
