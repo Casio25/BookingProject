@@ -8,6 +8,7 @@ const formElemRooms = document.querySelector("#room_number");
 const formElemCapacity = document.querySelector("#capacity");
 const formElemCheckin = document.querySelector("#timein");
 const formElemCheckout = document.querySelector("#timeout");
+
 /*Submit button  */
 const submitButton = document.querySelector(".ad-form__submit")
 const notForPeople = 100;
@@ -71,6 +72,7 @@ export function validationForm() {
                 break;
         }
     })
+
     formElemRooms.addEventListener('change', (e) =>{
         roomChange(e);
     })
@@ -83,6 +85,7 @@ export function validationForm() {
     formElemCheckout.addEventListener('change', (e) => {
         checkInChange(e)
     })
+
 
     function validationCheck(){
         if (formElemPrice.value === "" || formElemTitle === "") {

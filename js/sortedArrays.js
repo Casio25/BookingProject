@@ -92,13 +92,13 @@ export async function Arrays() {
             case 'high':
                 filterArray.offer.price = {
                     min: 50000,
-                    max: Number.MAX_SAFE_INTEGER
+                    max: 70000
                 };
                 break;
             case "any":
                 filterArray.offer.price = {
                     min: 0,
-                    max: Number.MAX_SAFE_INTEGER
+                    max: 70000
                 };
         }
     }
