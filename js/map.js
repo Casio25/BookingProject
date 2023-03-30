@@ -1,5 +1,10 @@
 import { offers } from "./variables.js";
 import {cloneOffer} from "./markgen.js"
+import { filteredData } from "./sortedArrays.js";
+import { getOfferData } from "./markgen.js";
+
+
+
 
 
 
@@ -22,16 +27,29 @@ myMarker.addEventListener('drag', () => {
     document.getElementById("address").value = `${latlng.lat}, ${latlng.lng}`;
 });
 
+
+
 export function mapPopup(){
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
-    for (let i = 1; i < offers.length; i++) {
-        marker = new L.marker([offers[i].offer.location.x, offers[i].offer.location.y],)
-            .bindPopup(cloneOffer[i])
-            .addTo(map);
-        
-    }
+}
 
+let offerLayer;
+function renderMapOffers(map, data, ){
+    const mapMarkersData =[];
+    const fragmentData = data.map((e) => getOfferData(e))
+    for(let i =0;  i < data.length; i++){
+        mapMarkersData.push(L.marker([data[i].offer.location.x, data[i].offer.location.y],)
+            .bindPopup(fragmentData[i]))
+    }
+    offerLayer = L.featureGroup(mapMarkersData).addTo(map)
+}
+
+export function NewMarkers(data, fragmentData){
+    if(map.hasLayer(offerLayer)){
+        map.removeLayer(offerLayer);
+    }
+    renderMapOffers(map, data, fragmentData)
 }

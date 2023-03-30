@@ -83,7 +83,7 @@ function showPhotos(listOfPhotos){
         }
         return false;
     }
-function getOfferData(e) {
+export function getOfferData(e) {
     const cloneTemplate = cardTemplate.content.cloneNode(true).firstElementChild;
     popupAvatar.src = e.author.avatar;
     popupAdress.textContent = `${e.offer.adress.locationX} ${e.offer.adress.locationY}`;

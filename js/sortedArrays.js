@@ -1,5 +1,7 @@
 
 import * as variables from "./variables.js"
+import { NewMarkers } from "./map.js";
+import { getOfferData } from "./markgen.js";
 const numberOfShownOffers = 10;
 
 const fetchData = async () => {
@@ -16,14 +18,15 @@ const fetchData = async () => {
 }
 /**test function */
 
-let filterArray = {
+const filterArray = {
     offer:{
         features:[],
         
 
     }
 }
-let filteredData = {};
+export let filteredData = [];
+let filterFragment = [];
 const typeSelector = document.querySelector("#housing-type");
 const priceSelector = document.querySelector("#housing-price");
 const roomSelector = document.querySelector("#housing-rooms");
@@ -34,10 +37,11 @@ const backendData = await fetchData()
 const backendArray = JSON.stringify(backendData);
 const shuffledBackendData = JSON.parse(backendArray);
 
+
 const slicedDefault = shuffledBackendData.slice(0, numberOfShownOffers);
 
 export async function Arrays() {
-
+NewMarkers(shuffledBackendData.slice(0, 10))
     
     /*test part */
 
@@ -153,28 +157,31 @@ export async function Arrays() {
     typeSelector.addEventListener('change', (e) => {
         typeFilter(e.target.value);
         filteredData = applyFilter(shuffledBackendData);
-        console.log(filteredData)
-
-
+        console.log(filteredData);
+        console.log(filterFragment);
+        NewMarkers(filteredData.slice(0, 10));
     })
     roomSelector.addEventListener('change', (e) => {
         roomFilter(e.target.value);
         console.log(filterArray);
         filteredData = applyFilter(shuffledBackendData) // log filtered each time roomSelector is changed
-        console.log(filteredData)
+        console.log(filteredData);
+        NewMarkers(filteredData.slice(0, 10));
     })
     capacitySelector.addEventListener('change', (e) => {
         capacityFilter(e.target.value);
         console.log(filterArray);
         filteredData = applyFilter(shuffledBackendData) // log filtered each time capacitySelector is changed
-        console.log(filteredData)
+        console.log(filteredData);
+        NewMarkers(filteredData.slice(0, 10));
     })
     featureSelector.addEventListener('change', (e)=>{
         featureFilter(e.target);
         console.log(filterArray);
         console.log(e.target.value)
         filteredData = applyFilter(shuffledBackendData);
-        console.log(filteredData)
+        console.log(filteredData);
+        NewMarkers(filteredData.slice(0, 10));
     });
     priceSelector.addEventListener('change', (e) =>{
         priceFilter(e.target.value);
@@ -182,6 +189,8 @@ export async function Arrays() {
         console.log(filterArray);
         filteredData = applyFilter(shuffledBackendData);
         console.log(filteredData);
+        NewMarkers(filteredData.slice(0, 10));
     })
+    return filteredData
 }
 
