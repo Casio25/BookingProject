@@ -26,7 +26,7 @@ const filterArray = {
     }
 }
 export let filteredData = [];
-let filterFragment = [];
+
 const typeSelector = document.querySelector("#housing-type");
 const priceSelector = document.querySelector("#housing-price");
 const roomSelector = document.querySelector("#housing-rooms");
@@ -158,7 +158,6 @@ NewMarkers(shuffledBackendData.slice(0, 10))
         typeFilter(e.target.value);
         filteredData = applyFilter(shuffledBackendData);
         console.log(filteredData);
-        console.log(filterFragment);
         NewMarkers(filteredData.slice(0, 10));
     })
     roomSelector.addEventListener('change', (e) => {

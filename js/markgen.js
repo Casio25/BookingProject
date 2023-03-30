@@ -25,7 +25,7 @@ const fragment = new DocumentFragment();
 
 export const cloneOffer = offers.map((e) => getOfferData(e));
 
-function getFeatures() {
+function getFeatures(e) {
     for(let i = 0; i < offers.length; i++){
         if (!offers[i].offer.features.includes("wifi")){
             popupWifi.classList.add("hidden")
@@ -92,7 +92,9 @@ export function getOfferData(e) {
     popupPrice.textContent = `${e.offer.price} грн/ніч`;
     popupCapacity.textContent = `${e.offer.rooms} кімнат для ${e.offer.guests} гостей`;
     popupTime.textContent = `Заїзд після ${e.offer.checkin} виїзд до ${e.offer.checkout}`;
-    getFeatures();
+    e.offer.features.forEach((feature) => {
+        cloneTemplate.querySelector(`.popup__feature--${feature}`).classList.add("hidden");
+    });
     popupDescription.textContent = e.offer.description;
     showPhotos(e.offer.photos);
     fragment.appendChild(cloneTemplate);

@@ -97,7 +97,7 @@ export function validationForm() {
         }else {
             console.log("ok");
             sendOffer();
-
+            window.location.reload();
         }
     }
 
