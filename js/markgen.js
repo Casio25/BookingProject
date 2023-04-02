@@ -62,6 +62,7 @@ function chooseType(data){
     return data;
 }
 
+
 function showPhotos(listOfPhotos){
     popupPhotos.innerHTML = "";
     for(let i = 0; i < listOfPhotos.length; i++){
@@ -84,7 +85,14 @@ function showPhotos(listOfPhotos){
         return false;
     }
 export function getOfferData(e) {
+
     const cloneTemplate = cardTemplate.content.cloneNode(true).firstElementChild;
+    cloneTemplate.querySelector(".popup__feature--wifi").classList.add("hidden");
+    cloneTemplate.querySelector(".popup__feature--washer").classList.add("hidden");
+    cloneTemplate.querySelector(".popup__feature--dishwasher").classList.add("hidden");
+    cloneTemplate.querySelector(".popup__feature--elevator").classList.add("hidden");
+    cloneTemplate.querySelector(".popup__feature--parking").classList.add("hidden");
+    cloneTemplate.querySelector(".popup__feature--conditioner").classList.add("hidden");
     popupAvatar.src = e.author.avatar;
     popupAdress.textContent = `${e.offer.adress.locationX} ${e.offer.adress.locationY}`;
     popupTitle.textContent = e.offer.title;
@@ -93,7 +101,7 @@ export function getOfferData(e) {
     popupCapacity.textContent = `${e.offer.rooms} кімнат для ${e.offer.guests} гостей`;
     popupTime.textContent = `Заїзд після ${e.offer.checkin} виїзд до ${e.offer.checkout}`;
     e.offer.features.forEach((feature) => {
-        cloneTemplate.querySelector(`.popup__feature--${feature}`).classList.add("hidden");
+        cloneTemplate.querySelector(`.popup__feature--${feature}`).classList.remove("hidden");
     });
     popupDescription.textContent = e.offer.description;
     showPhotos(e.offer.photos);
